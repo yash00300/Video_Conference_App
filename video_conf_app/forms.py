@@ -32,4 +32,3 @@ class UserLoginForm(forms.Form):
     username = forms.CharField(max_length=100,required=True)
     password = forms.CharField(label="Password",widget=forms.PasswordInput)
     
-    

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Video Conference</title>
+    <title>Join Room</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -40,7 +40,7 @@
             z-index: 1;
         }
 
-        .conference-box {
+        .form-box {
             position: relative;
             z-index: 2;
             background-color: rgba(255, 255, 255, 0.1);
@@ -49,101 +49,101 @@
             box-shadow: 0 4px 30px rgba(0,0,0,0.2);
             backdrop-filter: blur(8px);
             width: 90%;
-            max-width: 500px;
+            max-width: 400px;
         }
 
         h1 {
             color: white;
-            font-size: 2.2rem;
-            margin-bottom: 2rem;
+            font-size: 2rem;
+            margin-bottom: 30px;
             text-align: center;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
         }
 
-        .btn-container {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
+        .form-group {
+            margin-bottom: 25px;
         }
 
-        .btn {
+        label {
+            color: white;
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        input {
             width: 100%;
-            padding: 1rem;
+            padding: 12px;
             border: none;
             border-radius: 8px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            color: white;
-            font-weight: 600;
+            font-size: 14px;
             background: rgba(255, 255, 255, 0.15);
+            color: white;
             border: 1px solid rgba(255,255,255,0.2);
         }
 
-        .btn-primary {
-            background: linear-gradient(45deg, #ff6b6bcc, #ff8e8ecc);
+        input::placeholder {
+            color: rgba(255,255,255,0.7);
+            font-size: 14px;
         }
 
-        .btn-secondary {
-            background: linear-gradient(45deg, #4ecdc4cc, #88d8b0cc);
-        }
-
-        .btn-logout {
-            background: linear-gradient(45deg, #ff9a9ecc, #fad0c4cc);
-        }
-
-        .btn:hover {
+        input:focus {
+            outline: none;
             background: rgba(255, 255, 255, 0.25);
+        }
+
+        .join-btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(45deg, #4ecdc4cc, #88d8b0cc);
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .join-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        }
-
-        .btn-icon {
-            width: 24px;
-            height: 24px;
-            filter: brightness(0) invert(1);
+            filter: brightness(110%);
         }
 
         @media (max-width: 768px) {
-            .conference-box {
+            .form-box {
                 padding: 30px;
             }
             
             h1 {
                 font-size: 1.8rem;
+                margin-bottom: 25px;
             }
             
-            .btn {
-                padding: 0.8rem;
-                font-size: 0.9rem;
+            input {
+                padding: 10px;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="conference-box">
-            <h1>Welcome, {{first_name}}! </h1>
-            
-            <div class="btn-container">
-              <a href="{% url 'meeting' %}" class="btn btn-primary">
-                    New Meeting
-                </a>
-
-                <a href="{% url 'join_meeting' %}" class="btn btn-secondary">
-                    
-                    Join Meeting
-                </a>
-                <a href="{% url 'login' %}" class="btn btn-logout">
-                    
-                    Logout
-                </a>
-            </div>
+        <div class="form-box">
+            <h1>Join Room</h1>
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="roomID">Room ID</label>
+                    <input 
+                        type="text" 
+                        id="room-id" 
+                        name="roomID" 
+                        placeholder="Enter Room Code"
+                        required
+                    >
+                </div>
+                <button type="submit" class="join-btn">Join</button>
+            </form>
         </div>
     </div>
 </body>
